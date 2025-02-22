@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#808080</color>
+
+    <color name="light_blue">#3A4C80</color>
+    <color name="default_blue">#1E2A50</color>
+    <color name="dark_blue">#141B38</color>
+
+    <color name="light_gold">#E0C75E</color>
+    <color name="default_gold">#CDB12A</color>
+    <color name="dark_gold">#A28E1F</color>
+
+
 </resources>
