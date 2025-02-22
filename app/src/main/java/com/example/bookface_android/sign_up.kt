@@ -36,7 +36,7 @@ class sign_up : AppCompatActivity() {
 
             if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
                 if (!email.matches(emailRegex)) {
-                    Toast.makeText(this, "Invalid email format! Use: 220XXXX@students.kcau.ac.ke", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Invalid email format! Use: XX/XXXXX@students.kcau.ac.ke", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 if (pass.length < 6) {

@@ -23,7 +23,6 @@ class splashScreen : AppCompatActivity() {
             // Start MainActivity
             val intent = Intent(this, sign_in::class.java)
             startActivity(intent)
-            // Finish the splash screen activity so the user can't go back to it
             finish()
         }, 3000) // 3000 milliseconds = 3 seconds
     }
