@@ -23,6 +23,7 @@ class sign_in : AppCompatActivity() {
         binding.toSignUp.setOnClickListener {
             val intent = Intent(this, sign_up::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.btnSignIn.setOnClickListener {

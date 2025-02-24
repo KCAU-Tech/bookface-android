@@ -1,52 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
-
+    android:background="@color/white"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_bg"
-        android:fontFamily=""
-        android:padding="10dp"
-        android:text="Bookface"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:background="@color/white">
-
-        <Button
-            android:id="@+id/btnlogout"
+        <!-- Profile Setup Title -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Profile Setup"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:paddingBottom="20dp"/>
 
+        <!-- Profile Picture Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="20dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Circular Profile Image Placeholder -->
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_account_circle_24"
+                android:background="@drawable/circle_background"
+                android:padding="20dp"/>
 
+            <!-- Upload Button -->
+            <Button
+                android:id="@+id/uploadButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Photo"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/dark_blue"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
 
+        <!-- Username Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Username"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingBottom="5dp"/>
 
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your username"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@drawable/rounded_background"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:inputType="text"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Select Course -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Your Course"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"/>
+
+        <Spinner
+            android:id="@+id/courseSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background"
+            android:padding="10dp"/>
+
+        <!-- Bio Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bio Section"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/bioEditText"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="Tell others about yourself..."
+            android:background="@drawable/rounded_background"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:padding="10dp"
+            android:maxLines="5"
+            android:gravity="top"
+            android:inputType="textMultiLine"/>
+
+        <TextView
+            android:id="@+id/charLimit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maximum 500 characters"
+            android:textSize="12sp"
+            android:textColor="@color/dark_gold"
+            android:paddingTop="5dp"/>
+
+        <!-- Interests Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Your Interests"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose at least 5 interests (max 10)."
+            android:textSize="14sp"
+            android:textColor="@color/dark_gold"
+            android:paddingBottom="10dp"/>
+
+        <!-- Interests Grid -->
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/interestsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap"
+            app:justifyContent="space_between"
+            android:padding="8dp">
+
+            <!-- Example Interests -->
+            <Button style="@style/InterestChip"  android:text="Tech Coding"/>
+            <Button style="@style/InterestChip" android:text="Engineering"/>
+            <Button style="@style/InterestChip" android:text="Medicine"/>
+            <Button style="@style/InterestChip" android:text="Business "/>
+            <Button style="@style/InterestChip" android:text="Law"/>
+            <Button style="@style/InterestChip" android:text="Education"/>
+            <Button style="@style/InterestChip" android:text="Agriculture"/>
+            <Button style="@style/InterestChip" android:text="Math  Stats"/>
+            <Button style="@style/InterestChip" android:text="Football"/>
+            <Button style="@style/InterestChip" android:text="Basketball"/>
+            <Button style="@style/InterestChip" android:text="Running"/>
+            <Button style="@style/InterestChip" android:text="Volleyball"/>
+            <Button style="@style/InterestChip" android:text="Swimming"/>
+            <Button style="@style/InterestChip" android:text="Rugby"/>
+            <Button style="@style/InterestChip" android:text="Tennis"/>
+            <Button style="@style/InterestChip" android:text="Gym  Fitness"/>
+            <Button style="@style/InterestChip" android:text="Music"/>
+            <Button style="@style/InterestChip" android:text="Art  Design"/>
+            <Button style="@style/InterestChip" android:text="Photography"/>
+            <Button style="@style/InterestChip" android:text="Dance"/>
+            <Button style="@style/InterestChip" android:text="Theatre"/>
+            <Button style="@style/InterestChip" android:text="Poetry"/>
+            <Button style="@style/InterestChip" android:text="Writing"/>
+            <Button style="@style/InterestChip" android:text="Fashion"/>
+            <Button style="@style/InterestChip" android:text="Hiking"/>
+            <Button style="@style/InterestChip" android:text="Gaming"/>
+            <Button style="@style/InterestChip" android:text="Reading"/>
+            <Button style="@style/InterestChip" android:text="Cooking"/>
+            <Button style="@style/InterestChip" android:text="Travel"/>
+            <Button style="@style/InterestChip" android:text="Wellness"/>
+            <Button style="@style/InterestChip" android:text="Meditation"/>
+            <Button style="@style/InterestChip" android:text="Content Creation"/>
+            <Button style="@style/InterestChip" android:text="Leadership"/>
+            <Button style="@style/InterestChip" android:text="Volunteering"/>
+            <Button style="@style/InterestChip" android:text="Environment"/>
+            <Button style="@style/InterestChip" android:text="Debate"/>
+            <Button style="@style/InterestChip" android:text="Chess"/>
+            <Button style="@style/InterestChip" android:text="Startups"/>
+            <Button style="@style/InterestChip" android:text="Innovation"/>
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+</ScrollView>
