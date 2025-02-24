@@ -40,7 +40,6 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/baseline_account_circle_24"
                 android:background="@drawable/circle_background"
                 android:padding="20dp"/>
 
@@ -157,7 +156,7 @@
             android:padding="8dp">
 
             <!-- Example Interests -->
-            <Button style="@style/InterestChip"  android:text="Tech Coding"/>
+            <Button style="@style/InterestChip" android:text="Tech Coding"/>
             <Button style="@style/InterestChip" android:text="Engineering"/>
             <Button style="@style/InterestChip" android:text="Medicine"/>
             <Button style="@style/InterestChip" android:text="Business "/>
@@ -198,5 +197,13 @@
             <Button style="@style/InterestChip" android:text="Innovation"/>
 
         </com.google.android.flexbox.FlexboxLayout>
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/dark_blue"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 </ScrollView>
