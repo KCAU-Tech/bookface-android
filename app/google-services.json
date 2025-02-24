@@ -26,25 +26,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:540998014807:android:69c740f95a456051fb1012",
-        "android_client_info": {
-          "package_name": "com.kcau.bookface_android"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA2naSOVdpANy2_t39QsfNA94LthLV9SkE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:540998014807:android:d4812c03ae659f71fb1012",
         "android_client_info": {
           "package_name": "com.kcau.bookface_mobile"
