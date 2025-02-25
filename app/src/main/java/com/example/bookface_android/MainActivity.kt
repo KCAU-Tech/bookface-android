@@ -2,6 +2,8 @@ package com.example.bookface_android
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
@@ -11,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.android.flexbox.FlexboxLayout
+import java.io.ByteArrayOutputStream
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -83,19 +86,26 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        if (selectedImageUri == null) {
+            saveProfileToFirestore(username, bio, course, null)
+            return
+        }
+
         val storageRef = storage.reference.child("users/${user.uid}/profile/profile.jpg")
 
-        selectedImageUri?.let { uri ->
-            storageRef.putFile(uri)
-                .addOnSuccessListener {
-                    storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        saveProfileToFirestore(username, bio, course, downloadUrl.toString())
-                    }
+        // Convert selected image URI to a compressed byte array
+        val compressedImageBytes = compressImage(selectedImageUri!!)
+
+        // Upload compressed image
+        storageRef.putBytes(compressedImageBytes)
+            .addOnSuccessListener {
+                storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    saveProfileToFirestore(username, bio, course, downloadUrl.toString())
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } ?: saveProfileToFirestore(username, bio, course, null)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
 
@@ -107,18 +117,20 @@ class MainActivity : AppCompatActivity() {
             "bio" to bio,
             "course" to course,
             "interests" to selectedInterests.toList(),
-            "profileImage" to imageUrl
+            "profileImage" to imageUrl,
+            "profileSetup" to true  // ✅ Mark profile as complete
         )
 
         firestore.collection("users").document(user.uid)
             .set(userProfile)
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile saved successfully", Toast.LENGTH_SHORT).show()
+
+                // ✅ Redirect to Home
                 val intent = Intent(this, home::class.java)
                 startActivity(intent)
                 finish()
             }
-
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
@@ -145,15 +157,19 @@ class MainActivity : AppCompatActivity() {
     private fun setupInterestButtons(container: FlexboxLayout) {
         for (i in 0 until container.childCount) {
             val button = container.getChildAt(i) as? Button ?: continue
+
             button.setOnClickListener {
                 val interest = button.text.toString()
+
                 if (selectedInterests.contains(interest)) {
                     selectedInterests.remove(interest)
-                    button.setBackgroundColor(resources.getColor(android.R.color.darker_gray))
+                    button.setBackgroundColor(resources.getColor(R.color.dark_blue, theme))
+                    button.setTextColor(resources.getColor(R.color.white, theme))
                 } else {
                     if (selectedInterests.size < maxInterests) {
                         selectedInterests.add(interest)
-                        button.setBackgroundColor(resources.getColor(android.R.color.holo_blue_light))
+                        button.setBackgroundColor(resources.getColor(R.color.dark_gold, theme))
+                        button.setTextColor(resources.getColor(R.color.white, theme))
                     } else {
                         Toast.makeText(this, "You can select up to 10 interests", Toast.LENGTH_SHORT).show()
                     }
@@ -161,4 +177,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun compressImage(imageUri: Uri): ByteArray {
+        val inputStream = contentResolver.openInputStream(imageUri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+
+        val outputStream = ByteArrayOutputStream()
+
+        // Compress to JPEG with 50% quality (Adjustable: 100 = high quality, 0 = lowest)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
+
+        return outputStream.toByteArray()
+    }
+
+
 }

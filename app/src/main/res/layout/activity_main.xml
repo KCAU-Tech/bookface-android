@@ -40,6 +40,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/baseline_account_circle_24"
                 android:background="@drawable/circle_background"
                 android:padding="20dp"/>
 
@@ -156,6 +157,7 @@
             android:padding="8dp">
 
             <!-- Example Interests -->
+
             <Button style="@style/InterestChip" android:text="Tech Coding"/>
             <Button style="@style/InterestChip" android:text="Engineering"/>
             <Button style="@style/InterestChip" android:text="Medicine"/>
