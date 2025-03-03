@@ -1,5 +1,6 @@
 package com.example.bookface_android
 
+import SecondFragment
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -21,9 +22,17 @@ class home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val adapter=ViewPagerAdapter(supportFragmentManager)
+
+        adapter.addFragment(FirstFragment(),"Posts")
+        adapter.addFragment(SecondFragment(),"Chats")
+        adapter.addFragment(ThirdFragment(),"Groups")
+
+        binding.viewPager.adapter=adapter
+        binding.tbLayout.setupWithViewPager(binding.viewPager)
+
 
         firebaseAuth = FirebaseAuth.getInstance()
-
 
         binding.btnlogout.setOnClickListener {
             logout()
