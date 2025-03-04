@@ -1,18 +1,17 @@
 package com.example.bookface_android
 
-import PostAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookface_android.databinding.FragmentFirstBinding
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class FirstFragment : Fragment() {
 
@@ -29,16 +28,19 @@ class FirstFragment : Fragment() {
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.rvPosts)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        postAdapter = PostAdapter(postList)
+        postAdapter = PostAdapter(postList, requireContext())
         recyclerView.adapter = postAdapter
 
+        // Navigate to PostingActivity2
         binding.btnToPost.setOnClickListener {
             val intent = Intent(requireActivity(), PostingActivity2::class.java)
             startActivity(intent)
         }
 
+        // Load posts from Firestore
         loadPosts()
         return view
     }
@@ -75,4 +77,3 @@ class FirstFragment : Fragment() {
             }
     }
 }
-
