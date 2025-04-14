@@ -43,7 +43,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tv_time"
+                    android:id="@+id/tv_post_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 day ago"
@@ -64,8 +64,8 @@
         <!-- Post Image (Hidden by Default) -->
         <ImageView
             android:id="@+id/postImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
             android:scaleType="centerCrop"
             android:layout_marginTop="8dp"/>
 
@@ -103,14 +103,15 @@
             android:gravity="center"
             android:paddingTop="10dp">
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_like"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="👍 Like"
-                android:background="@android:color/transparent"
-                android:textColor="@android:color/black" />
+                android:src="@drawable/heart_empty"
+                android:contentDescription="Like button"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_vertical" />
+
 
             <Button
                 android:id="@+id/btn_comment"

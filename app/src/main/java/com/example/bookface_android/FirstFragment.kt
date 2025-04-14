@@ -57,12 +57,14 @@ class FirstFragment : Fragment() {
 
                 snapshots?.documents?.forEach { document ->
                     val post = document.toObject(Post::class.java)
-                    if (post != null) {
-                        fetchUsername(post) // Fetch username for each post
+                    post?.let {
+                        it.id = document.id  // Set the post's ID from the Firestore document ID
+                        fetchUsername(it) // Fetch username for each post
                     }
                 }
             }
     }
+
 
     private fun fetchUsername(post: Post) {
         db.collection("users").document(post.userId)
