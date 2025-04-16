@@ -14,6 +14,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.android.flexbox.FlexboxLayout
 import java.io.ByteArrayOutputStream
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -75,7 +77,12 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data?.data != null) {
             selectedImageUri = data.data
-            binding.profileImage.setImageURI(selectedImageUri) // Show image in ImageView
+
+            // Use Glide to load and display the image as a circle
+            Glide.with(this)
+                .load(selectedImageUri) // Load the selected image URI
+                .transform(CircleCrop()) // Apply the CircleCrop transformation
+                .into(binding.profileImage) // Set the image into the ImageView
         }
     }
 

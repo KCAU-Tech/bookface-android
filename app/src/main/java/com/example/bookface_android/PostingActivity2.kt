@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bookface_android.databinding.ActivityPostingBinding
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import java.io.ByteArrayOutputStream
+import com.google.firebase.Timestamp
 import java.util.UUID
 
 class PostingActivity2 : AppCompatActivity() {
@@ -66,11 +68,19 @@ class PostingActivity2 : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.data
-            binding.btnPhoto.setImageURI(selectedImageUri)
+
+            // Show preview in the new ImageView
+            binding.selectedImageView.setImageURI(selectedImageUri)
+            binding.selectedImageView.visibility = View.VISIBLE
+
+            // Optionally change the btnPhoto icon back to default (camera)
+            binding.btnPhoto.setImageResource(android.R.drawable.ic_menu_camera)
         }
     }
+
 
     private fun compressImage(photoUri: Uri): ByteArray? {
         try {
@@ -118,7 +128,7 @@ class PostingActivity2 : AppCompatActivity() {
     }
 
     private fun submitPost(userId: String, text: String, imageUrl: String?) {
-        val timestamp = System.currentTimeMillis()
+        val timestamp = Timestamp.now()
 
         val post: MutableMap<String, Any?> = HashMap()
         post["userId"] = userId
@@ -134,8 +144,13 @@ class PostingActivity2 : AppCompatActivity() {
             .addOnSuccessListener { documentReference: DocumentReference? ->
                 Toast.makeText(this, "Post uploaded!", Toast.LENGTH_SHORT).show()
                 binding.etPost.setText("")
-                binding.btnPhoto.setImageResource(R.drawable.bottom_bar)
-                selectedImageUri = null
+                binding.btnPhoto.setImageResource(R.drawable.ic_menu_camera)
+                binding.selectedImageView.setImageDrawable(null)
+                binding.selectedImageView.visibility = View.GONE
+
+                val intent = Intent(this, home::class.java)
+                startActivity(intent)
+                finish()
             }
             .addOnFailureListener { e: Exception? ->
                 Toast.makeText(
@@ -145,4 +160,5 @@ class PostingActivity2 : AppCompatActivity() {
                 ).show()
             }
     }
+
 }

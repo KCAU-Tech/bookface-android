@@ -7,7 +7,8 @@ data class Post(
     val userId: String = "",
     val photoUrl: String = "",
     var likes: Int = 0,
-    val timestamp: Timestamp? = null, // Add this line
-    var id: String? = null // You may already have this
+    val createdAt: Timestamp? = null,
+    var id: String? = null
 )
+
 
