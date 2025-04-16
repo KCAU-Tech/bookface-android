@@ -124,12 +124,12 @@ class MainActivity : AppCompatActivity() {
             "bio" to bio,
             "course" to course,
             "interests" to selectedInterests.toList(),
-            "profileImage" to imageUrl,
+            "photoUrl" to imageUrl,
             "profileSetup" to true  // ✅ Mark profile as complete
         )
 
         firestore.collection("users").document(user.uid)
-            .set(userProfile)
+            .update(userProfile)
             .addOnSuccessListener {
                 Toast.makeText(this, "Profile saved successfully", Toast.LENGTH_SHORT).show()
 

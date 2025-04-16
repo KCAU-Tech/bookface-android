@@ -62,7 +62,13 @@ class sign_in : AppCompatActivity() {
 
         firestore.collection("users").document(user.uid).get()
             .addOnSuccessListener { document ->
-                if (document.exists() && document.getBoolean("profileSetup") == true) {
+                if (!document.exists()) {
+                    Toast.makeText(this, "User data not found. Please sign up first.", Toast.LENGTH_LONG).show()
+                    firebaseAuth.signOut()
+                    return@addOnSuccessListener
+                }
+
+                if (document.getBoolean("profileSetup") == true) {
                     startActivity(Intent(this, home::class.java))
                 } else {
                     startActivity(Intent(this, MainActivity::class.java))
@@ -70,7 +76,8 @@ class sign_in : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error fetching profile data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error fetching profile data: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
 }

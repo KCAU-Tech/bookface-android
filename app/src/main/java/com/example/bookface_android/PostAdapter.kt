@@ -47,7 +47,7 @@ class PostAdapter(
         val userRef = FirebaseFirestore.getInstance().collection("users").document(post.userId)
 
         userRef.get().addOnSuccessListener { document ->
-            val profileUrl = document.getString("profileImage")
+            val profileUrl = document.getString("photoUrl")
             if (!profileUrl.isNullOrEmpty()) {
                 Glide.with(context)
                     .load(profileUrl)

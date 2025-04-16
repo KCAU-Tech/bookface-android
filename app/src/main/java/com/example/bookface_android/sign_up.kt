@@ -111,16 +111,16 @@ class sign_up : AppCompatActivity() {
     }
 
     // Function to save user data to Firestore
-    private fun saveUserDataToFirestore(uid: String, fname: String, lname: String, email: String) {
+    private fun saveUserDataToFirestore(id: String, fname: String, lname: String, email: String) {
         val user = hashMapOf(
-            "uid" to uid,
+            "id" to id,
             "firstName" to fname,
             "lastName" to lname,
             "email" to email,
-            "profileSetup" to false // Default value for profile setup
+            "profileSetup" to false
         )
 
-        firestore.collection("users").document(uid)
+        firestore.collection("users").document(id)
             .set(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "User data saved successfully!", Toast.LENGTH_SHORT).show()
@@ -129,4 +129,5 @@ class sign_up : AppCompatActivity() {
                 Toast.makeText(this, "Failed to save user data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
 }
